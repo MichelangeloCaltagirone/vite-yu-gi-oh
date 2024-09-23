@@ -6,7 +6,7 @@ import axios from 'axios';
     export default {
         data() {
             return {
-                apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?num=80&offset=0',
+                apiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php",
                 cardsList: [],
                 awaitedCardsList: []
             }
@@ -16,7 +16,13 @@ import axios from 'axios';
         },
         methods: {
             getYugiohCardList(){
-            axios.get(this.apiUrl).then(response => {
+            axios.get(this.apiUrl, {
+                params: {
+                    num: 80,
+                    offset: 0
+                }
+            })            
+            .then(response => {
             console.dir(response.data.data);
             console.log(response.data.data[0].card_images[0].image_url, "mostro prova di ricerca");
             this.awaitedCardsList = response.data.data;
@@ -51,6 +57,7 @@ import axios from 'axios';
                 <option value="Alien">Alien</option>
             </select>
             <div id="cardsSearched">Found {{ answerLength }} cards</div>
+
             <section class="cardsList">
                 
                 <cardItem v-for="(card, index) in cardsList" :key="index"
