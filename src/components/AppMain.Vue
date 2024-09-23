@@ -1,6 +1,7 @@
 <script>
 
 import cardItem from './AppCard.vue';
+import AppLoader from './AppLoader.vue';
 import axios from 'axios';
 
     export default {
@@ -8,11 +9,13 @@ import axios from 'axios';
             return {
                 apiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php",
                 cardsList: [],
-                awaitedCardsList: []
+                awaitedCardsList: [],
+                loading: true
             }
         },
         components: {
-            cardItem
+            cardItem,
+            AppLoader
         },
         methods: {
             getYugiohCardList(){
@@ -23,23 +26,16 @@ import axios from 'axios';
                 }
             })            
             .then(response => {
-            console.dir(response.data.data);
-            console.log(response.data.data[0].card_images[0].image_url, "mostro prova di ricerca");
-            this.awaitedCardsList = response.data.data;
-            console.log(this.awaitedCardsList[1].name, 'questa è la card list dinamica'); 
-            console.log(this.response.data.data[10].archetype);
-            console.log(this.awaitedCardsList.length)    
-
-
-            })
-            }
+           
+            this.awaitedCardsList = response.data.data})}
         },
         created() {
 
             this.getYugiohCardList()
             setTimeout(() => {
-            this.cardsList = this.awaitedCardsList;   
-        }, 5000)
+            this.cardsList = this.awaitedCardsList;
+            this.loading = false 
+        }, 4000)
         },
         computed: {
             answerLength() {
@@ -50,8 +46,10 @@ import axios from 'axios';
 </script>
 
 <template>
-    <main>
-        <div class="containerCustom">
+    <AppLoader v-if="loading" />
+    <main v-else>
+
+        <div class="containerCustom">            
 
             <select name="" id="inputSearchField">
                 <option value="Alien">Alien</option>
@@ -65,9 +63,7 @@ import axios from 'axios';
                 :name="card.name"
                 :archetype="card.archetype"
                 />
-
-                <!-- <img :src="this.cardsList[index].card_images[0].image_url" :alt=this.cardsList[index].name> -->
-            </section>
+            </section>           
 
         </div>
 
