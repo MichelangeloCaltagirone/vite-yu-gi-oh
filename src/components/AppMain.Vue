@@ -1,10 +1,12 @@
 <script>
+
 import cardItem from './AppCard.vue';
 import axios from 'axios';
+
     export default {
         data() {
             return {
-                apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?num=10&offset=0',
+                apiUrl: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?num=120&offset=0',
                 cardsList: [],
                 awaitedCardsList: []
             }
@@ -16,9 +18,10 @@ import axios from 'axios';
             getYugiohCardList(){
             axios.get(this.apiUrl).then(response => {
             console.dir(response.data.data);
-            console.log(response.data.data[0].card_images[0].image_url, 'mostro prova di ricerca');
+            console.log(response.data.data[0].card_images[0].image_url, "mostro prova di ricerca");
             this.awaitedCardsList = response.data.data;
-            console.log(this.awaitedCardsList[1].name, 'questa è la card list dinamica');       
+            console.log(this.awaitedCardsList[1].name, 'questa è la card list dinamica'); 
+            console.log(this.response.data.data[10].archetype)     
 
 
             })
@@ -33,34 +36,35 @@ import axios from 'axios';
         }
 }
 </script>
-<!--   <section class="comicsBookList">
-                <ComicsCard v-for="(comic, index) in comicsBooks" :key="index"
-                :picUrl="comic.thumb"
-                :price="comic.price"
-                :title="comic.series"
-                :bookType="comic.type" />
-            </section> -->
+
 <template>
-    <div class="containerCustom">
+    <main>
+        <div class="containerCustom">
 
-        <section class="cardsList">
-
-            <cardItem v-for="(card, index) in cardsList" :key="index"
-            :picUrl="card.card_images[0].image_url"
-            :name="card.name"
-            :archetype="card.archetype"
+            <select name="" id=""></select>
             
-            />
+            <section class="cardsList">
 
-            <!-- <img :src="this.cardsList[index].card_images[0].image_url" :alt=this.cardsList[index].name> -->
-        </section>
-        
-    </div>
+                <cardItem v-for="(card, index) in cardsList" :key="index"
+                :picUrl="card.card_images[0].image_url"
+                :name="card.name"
+                :archetype="card.archetype"
+                />
+
+                <!-- <img :src="this.cardsList[index].card_images[0].image_url" :alt=this.cardsList[index].name> -->
+            </section>
+
+        </div>
+
+    </main>
+    
  
 </template>
 
 <style scoped>
-
+main {
+    background-color: burlywood;
+}
 .containerCustom {
     max-width: 1100px;
     margin: 0 auto;
@@ -68,6 +72,8 @@ import axios from 'axios';
 .cardsList {
     display: flex;
     flex-wrap: wrap;
+    padding: 2rem;
+    background-color: white;
 }
 
 </style>

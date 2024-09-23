@@ -32,18 +32,28 @@
 
     <article>
         <img :src="picUrl" :alt="name">
-        <div>{{ name }}</div>
-        <div>{{ archetype }}</div>
+        <div id="name">{{ name }}</div>
+        <div id="archetype">{{ archetype }}</div>
     </article>
 
 </template>
 
 <style scoped>
 article {
-    display: inline;
-    flex-basis: calc(100% / 5);
-    img {
-        height: 250px;
+    background-color: burlywood;
+    margin: 0 auto 1.5rem auto;
+    
+    text-align: center;
+    height: 480px;
+    #name {
+        color: white;
+        font-weight: bold;
+        margin: 20px 0;
+        max-width: 240px;
     }
+    img {
+        height: 350px;
+    }
+    
 }
 </style>
